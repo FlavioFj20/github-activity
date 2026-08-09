@@ -1,0 +1,30 @@
+{
+  "name": "github-activity",
+  "version": "1.0.0",
+  "description": "A command line interface (CLI) to fetch the recent activity of a GitHub user and display it in the terminal.",
+  "main": "index.js",
+  "bin": {
+    "github-activity": "./dist/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlavioFj20/github-activity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/FlavioFj20/github-activity/issues"
+  },
+  "homepage": "https://github.com/FlavioFj20/github-activity#readme",
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^7.0.2"
+  }
+}
