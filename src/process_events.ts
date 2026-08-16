@@ -1,22 +1,4 @@
-import { Payload } from './../dist/types.d';
-import { type Post, type Repo } from './types.js';
-
-const repos: Repo[] = [];
-
-const processIssue = (e: Post) => {
-        const {action, issue} = e.payload;
-        //const { state } = issue ? issue : { state: ""};
-        const { state } = issue ;
-        console.log("Kind of issue:")
-        console.log(action, state, "\n");
-}
-
-const addRepo = (e: Post) => {
-    if (repos.length == 0){
-        const type = e.type, name = e.repo.name, repo = e.repo, payload = e.payload, ev = new Object;
-        repos.push({ type, name, repo, payload, ev })
-    }
-}
+import { type Post } from './types.js';
 
 export const processEvents = (events: Post[]) => {
     events.forEach(
@@ -30,7 +12,6 @@ export const processEvents = (events: Post[]) => {
                     break;
                 case 'IssuesEvent': 
                     console.log(e.type);
-                    processIssue(e);
                     break;
                 case 'DeleteEvent': 
                     console.log("Delete: ", e.type);
@@ -43,7 +24,6 @@ export const processEvents = (events: Post[]) => {
                     break;
                 case 'IssueCommentEvent': 
                     console.log(e.type);
-                    processIssue(e);
                     break;
                 default:
                     console.log("Unknown: ",e.type, "\n");

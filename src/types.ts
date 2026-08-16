@@ -56,27 +56,3 @@ export type Events = {
       count: number
     }
 };
-
-export type Repo = {
-    type: string,
-    name: string,
-    repo: {
-      id: number,
-      name: string,
-      url: string
-    },
-    payload: {
-      action: string,
-      ref: string,
-      ref_type: string,
-      state: string,
-      issue: { state: string }
-    },
-    events: object
-}
-
-
-// export type Payload = {
-//   action: string,
-//   state: string,
-// }
