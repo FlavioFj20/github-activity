@@ -27,15 +27,12 @@ async function main(){
       allowPositionals: true,
       strict: true,
     })
-
-    console.log(positionals);
     const [username, ...extra] = positionals;
 
     checkExtraInputs(extra);
     validateUser(username);
 
     const link = `https://api.github.com/users/${username}/events`; 
-    //console.log(link);
     await getActivity(link);
 
   } catch (error: any) {
