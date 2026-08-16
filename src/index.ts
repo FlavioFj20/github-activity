@@ -35,7 +35,7 @@ async function main(){
     validateUser(username);
 
     const link = `https://api.github.com/users/${username}/events`; 
-    console.log(link);
+    //console.log(link);
     await getActivity(link);
 
   } catch (error: any) {
