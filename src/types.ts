@@ -1,58 +1,64 @@
-export interface Post  {
-    id: number,
-    type: string,
-    actor: {
-      id: number,
-      login: string,
-      display_login: string,
-      gravatar_id: string,
-      url: string,
-      avatar_url: string
-    },
-    repo: {
-      id: number,
-      name: string,
-      url: string
-    },
-    payload: {
-      action: string,
-      ref: string,
-      ref_type: string,
-      full_ref: string,
-      state: string,
-      issue: { state: string },
-      master_branch: string,
-      description: string,
-      pusher_type: string
-    },
-    public: boolean,
-    created_at: string
+export interface GitHubActor {
+  readonly id: number;
+  readonly login: string;
+  readonly display_login: string;
+  readonly gravatar_id: string;
+  readonly url: string;
+  readonly avatar_url: string;
 }
 
-export type Events = {
-    push: { 
-      count: number 
-    },
-    issues: {
-      open: number,
-      Close: number,
-      comment: number
-    },
-    pullRequest: {
-      open: number,
-      close: {
-        merged: number,
-        rejected: number
-      }
-    },
-    create: {
-      repository: number,
-      branch: number
-    },
-    delete: {
-      count: number
-    },
-    fork: {
-      count: number
-    }
-};
+export interface GitHubRepo {
+  readonly id: number;
+  readonly name: string;
+  readonly url: string;
+}
+
+export interface GitHubWikiPage {
+  readonly page_name: string;
+  readonly title: string;
+  readonly action: string;
+  readonly summary: string;
+  readonly sha: string;
+  readonly html_url: string;
+}
+
+export interface GitHubPayload {
+  readonly action?: string;
+  readonly ref?: string;
+  readonly ref_type?: string;
+  readonly full_ref?: string;
+  readonly state?: string;
+  readonly issue?: { readonly state: string };
+  readonly master_branch?: string;
+  readonly description?: string;
+  readonly pusher_type?: string;
+  readonly pages?: GitHubWikiPage[];
+}
+
+export type GitHubEventType =
+  | 'PushEvent'
+  | 'IssuesEvent'
+  | 'PullRequestEvent'
+  | 'IssueCommentEvent'
+  | 'CreateEvent'
+  | 'DeleteEvent'
+  | 'ReleaseEvent'
+  | 'WatchEvent'
+  | 'ForkEvent'
+  | 'MemberEvent'
+  | 'CommitCommentEvent'
+  | 'PullRequestReviewEvent'
+  | 'PullRequestReviewCommentEvent'
+  | 'GollumEvent'
+  | 'DiscussionEvent'
+  | 'PublicEvent';
+
+export interface GitHubEvent {
+  readonly id: string;
+  readonly type: GitHubEventType;
+  readonly actor: GitHubActor;
+  readonly repo: GitHubRepo;
+  readonly payload: GitHubPayload;
+  readonly public: boolean;
+  readonly created_at: string;
+}

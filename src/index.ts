@@ -1,18 +1,18 @@
 #!/usr/bin/env node
-import { type Post } from './types.js';
+import { type GitHubEvent } from './types.js';
 import { parseArgs } from "node:util";
 import { checkExtraInputs, validateUser } from "./utils.js";
 import { processEvents } from './process_events.js';
 
-
-async function getActivity(link: string): Promise<Post[]> {
+async function getActivity(link: string): Promise<GitHubEvent[]> {
   try {
     const res = await fetch(link);
 
     if (!res.ok){
         throw new Error(`Requisition error: {res.status}`);
       }
-      const data: Post[] = (await res.json()) as Post[];
+      const data: GitHubEvent[] = (await res.json()) as GitHubEvent[];
+      processEvents(data);
       return data;
   } catch (error: any) {
   console.error(`Unexpected error: ${error.message}`);
@@ -36,8 +36,7 @@ async function main(){
 
     const link = `https://api.github.com/users/${username}/events`; 
     console.log(link);
-    const events = await getActivity(link);
-    processEvents(events);
+    await getActivity(link);
 
   } catch (error: any) {
     console.error(`Unexpected error: ${error.message}`);
