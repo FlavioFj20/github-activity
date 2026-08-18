@@ -9,13 +9,13 @@ async function getActivity(link: string): Promise<GitHubEvent[]> {
     const res = await fetch(link);
 
     if (!res.ok){
-        throw new Error(`Requisition error: {res.status}`);
+        throw new Error(`Requisition error: ${res.status}`);
       }
       const data: GitHubEvent[] = (await res.json()) as GitHubEvent[];
       processEvents(data);
       return data;
   } catch (error: any) {
-  console.error(`Unexpected error: ${error.message}`);
+  console.error(error.message);
   process.exit(1);
   }
 }
@@ -36,7 +36,7 @@ async function main(){
     await getActivity(link);
 
   } catch (error: any) {
-    console.error(`Unexpected error: ${error.message}`);
+    console.error(`Error: ${error.message}`);
     process.exit(1);
   }
 }
